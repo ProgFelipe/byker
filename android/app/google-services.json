@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "892290359427",
+    "firebase_url": "https://byker-97c26.firebaseio.com",
+    "project_id": "byker-97c26",
+    "storage_bucket": "byker-97c26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892290359427:android:19f4dcc20e140359",
+        "android_client_info": {
+          "package_name": "com.mydevlife.bayker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892290359427-vlmu3vaon4db6555s487llrqkpdbtt2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mydevlife.bayker",
+            "certificate_hash": "3a5e818925dbf44cef587e1d8e4d2029942878ec"
+          }
+        },
+        {
+          "client_id": "892290359427-e4v4of2o9qjpcmmfsmruhorvs0i29irn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDV_VnFngNiFbF4vDFpg6AhmWfCP9d741E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892290359427-e4v4of2o9qjpcmmfsmruhorvs0i29irn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "892290359427-qmbq23774u8phmuceh1jsaump42un265.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mydevlife.bayker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
