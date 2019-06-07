@@ -44,6 +44,11 @@ dev_dependencies:
   
   shared_preferences: ^0.5.3+1
   easy_localization: ^1.0.3+1
+  flare_flutter:
+    git: 
+      url: git://github.com/2d-inc/Flare-Flutter.git
+      ref: dev
+      path: flare_flutter
 
 
 # For information on the generic Dart part of this file, see the
