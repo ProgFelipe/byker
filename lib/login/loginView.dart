@@ -1,3 +1,5 @@
+import 'package:bayker/home/HomeView.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'loginContract.dart';
 import 'package:flutter/material.dart';
 import 'package:bayker/shared/CurvedShape.dart';
@@ -5,7 +7,8 @@ import 'package:bayker/shared/CurvedShape.dart';
 import 'package:animator/animator.dart';
 import 'loginPresenter.dart';
 import 'loginModel.dart';
-import 'package:bayker/repository/AuthService.dart';
+import 'package:bayker/services/AuthService.dart';
+import 'user.dart';
 
 class LoginView extends StatelessWidget implements View {
   @override
@@ -39,18 +42,19 @@ class LoginView extends StatelessWidget implements View {
               ),
             ),
           ),*/
-          Header(),
-          Center(
-            child: Column(
-              children: <Widget>[
-                UserProfile(),
-                LoginButton(),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+              Header(),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    UserProfile(),
+                    LoginButton(),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
   }
 }
 
@@ -115,7 +119,7 @@ class LoginButton extends StatelessWidget {
               onPressed: () => authService.googleSignIn(),
               color: Colors.white,
               textColor: Colors.black,
-              child: Text('Login with Google'),
+              child: Icon(Icons.golf_course),
             );
           }
         });
@@ -135,17 +139,34 @@ class UserProfileState extends State<UserProfile> {
   initState() {
     super.initState();
 
+    _saveData() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //int counter = (prefs.getInt('counter') ?? 0) + 1;
+      //print('Pressed $counter times.');
+      await prefs.setString('user', _profile.toString());
+    }
+
     // Subscriptions are created here
-    authService.profile.listen((state) => setState(() => _profile = state));
+    authService.profile.listen((state) => setState(() => {
+          _saveData(),
+          _profile = state,
+          print("JSON: $_profile"),
+          if (_profile.length > 0)
+            {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeView(
+                          userName: _profile['displayName'],
+                          email: _profile['email'])))
+            }
+        }));
 
     authService.loading.listen((state) => setState(() => _loading = state));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Container(padding: EdgeInsets.all(20), child: Text(_profile.toString())),
-      Text(_loading.toString())
-    ]);
+    return Column(children: <Widget>[Text(_loading.toString())]);
   }
 }

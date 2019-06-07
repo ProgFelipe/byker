@@ -1,5 +1,5 @@
 import 'loginContract.dart';
-import 'package:bayker/repository/AuthService.dart';
+import 'package:bayker/services/AuthService.dart';
 
 class LoginModel implements Model{
 
