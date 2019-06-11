@@ -1,5 +1,5 @@
+import 'package:bayker/home/HomeView.dart';
 import 'package:flutter/material.dart';
-import 'login/loginView.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -37,6 +37,6 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blue,
             ),
             //home: MyHomePage(title: 'Flutter Demo Home Page'),
-            home: LoginView()));
+            home: HomeView()));
   }
 }

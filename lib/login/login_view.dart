@@ -9,6 +9,7 @@ import 'loginPresenter.dart';
 import 'loginModel.dart';
 import 'package:bayker/services/AuthService.dart';
 import 'user.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginView extends StatelessWidget implements View {
   @override
@@ -42,19 +43,18 @@ class LoginView extends StatelessWidget implements View {
               ),
             ),
           ),*/
-              Header(),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    UserProfile(),
-                    LoginButton(),
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
+          Header(),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                LoginButton(),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -102,71 +102,52 @@ class LoginBackground extends StatelessWidget {
 }
 
 class LoginButton extends StatelessWidget {
+  bool isLoggedUser;
+  LoginButton({this.isLoggedUser});
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: authService.user,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return MaterialButton(
-              onPressed: () => authService.signOut(),
-              color: Colors.red,
-              textColor: Colors.white,
-              child: Text('Signout'),
-            );
-          } else {
-            return MaterialButton(
-              onPressed: () => authService.googleSignIn(),
-              color: Colors.white,
-              textColor: Colors.black,
-              child: Icon(Icons.golf_course),
-            );
-          }
-        });
-  }
-}
-
-class UserProfile extends StatefulWidget {
-  @override
-  UserProfileState createState() => UserProfileState();
-}
-
-class UserProfileState extends State<UserProfile> {
-  Map<String, dynamic> _profile;
-  bool _loading = false;
-
-  @override
-  initState() {
-    super.initState();
-
-    _saveData() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //int counter = (prefs.getInt('counter') ?? 0) + 1;
-      //print('Pressed $counter times.');
-      await prefs.setString('user', _profile.toString());
+    if (isLoggedUser) {
+      return MaterialButton(
+        onPressed: () => showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              // return object of type Dialog
+              return AlertDialog(
+                title: new Text(
+                    AppLocalizations.of(context).tr('dialog_sign_out_title')),
+                content: new Text(
+                    AppLocalizations.of(context).tr('dialog_sign_out_message')),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text(
+                        AppLocalizations.of(context).tr('dialog_sign_out_ok')),
+                    onPressed: () {
+                      //Navigator.of(context, rootNavigator: true).pop('dialog');
+                      authService.signOut();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text(AppLocalizations.of(context)
+                        .tr('dialog_sign_out_cancel')),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            }),
+        color: Colors.red,
+        textColor: Colors.white,
+        child: Text('SignOut'),
+      );
+    } else {
+      return MaterialButton(
+        onPressed: () => authService.googleSignIn(),
+        color: Colors.white,
+        textColor: Colors.black,
+        child: Text('SignIn'),
+      );
     }
-
-    // Subscriptions are created here
-    authService.profile.listen((state) => setState(() => {
-          _saveData(),
-          _profile = state,
-          print("JSON: $_profile"),
-          if (_profile.length > 0)
-            {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeView(
-                          userName: _profile['displayName'],
-                          email: _profile['email'])))
-            }
-        }));
-
-    authService.loading.listen((state) => setState(() => _loading = state));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: <Widget>[Text(_loading.toString())]);
   }
 }

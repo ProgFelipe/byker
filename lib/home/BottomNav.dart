@@ -19,10 +19,8 @@ class BottomNavState extends State<BottomNav> {
   final void Function(int) callback;
   BottomNavState(this.callback);
   List items = [
-    MenuItem(x: -1.0, name: 'world', color: Colors.lightBlue[100]),
-    MenuItem(x: -0.5, name: 'world', color: Colors.purple),
-    MenuItem(x: 0.0, name: 'world', color: Colors.greenAccent),
-    MenuItem(x: 0.5, name: 'world', color: Colors.pink),
+    MenuItem(x: -1.0, name: 'world', color: Colors.lightBlue[300]),
+    MenuItem(x: 0.0, name: 'world', color: Colors.greenAccent[300]),
     MenuItem(x: 1.0, name: 'world', color: Colors.yellow),
   ];
 
@@ -40,7 +38,7 @@ class BottomNavState extends State<BottomNav> {
     double w = MediaQuery.of(context).size.width;
     return Container(
       height: 80,
-      color: Colors.orange,
+      color: Colors.black87,
       child: Stack(
         //  <-- 2. Define a stack
         children: [
@@ -51,7 +49,7 @@ class BottomNavState extends State<BottomNav> {
             child: AnimatedContainer(
               duration: Duration(milliseconds: 1000),
               height: 8,
-              width: w * 0.2,
+              width: w * 0.3,
               color: active.color,
             ),
           ),
