@@ -19,9 +19,9 @@ class BottomNavState extends State<BottomNav> {
   final void Function(int) callback;
   BottomNavState(this.callback);
   List items = [
-    MenuItem(x: -1.0, name: 'world', color: Colors.lightBlue[300]),
-    MenuItem(x: 0.0, name: 'world', color: Colors.greenAccent[300]),
-    MenuItem(x: 1.0, name: 'world', color: Colors.yellow),
+    MenuItem(x: -1.0, name: 'motorcycle', color: Colors.white),
+    MenuItem(x: 0.0, name: 'world', color: Colors.orange),
+    MenuItem(x: 1.0, name: 'helmet', color: Colors.amber),
   ];
 
   MenuItem active;

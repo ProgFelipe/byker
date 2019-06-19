@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bayker/login/user.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'BottomNav.dart';
-import 'package:bayker/map/google_map.dart';
+import 'package:bayker/map/road_map.dart';
 import 'package:bayker/feeds/feeds.dart';
 import 'package:bayker/crew/crew.dart';
 import 'package:bayker/login/login_view.dart';
@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
-      GoogleMap(),
+      RoadMap(),
       Feeds(),
       Crew(),
     ];
@@ -65,17 +65,19 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
         appBar: AppBar(
           title: Text(_appBarTitle),
+          backgroundColor: Colors.black54
         ),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
+                decoration: BoxDecoration(color: Colors.black54),
                 accountName: Text(userName),
                 accountEmail: Text(email),
                 currentAccountPicture: CircleAvatar(
                   backgroundColor:
                       Theme.of(context).platform == TargetPlatform.iOS
-                          ? Colors.blue
+                          ? Colors.black54
                           : Colors.white,
                   child: Text(
                     userName[0],
