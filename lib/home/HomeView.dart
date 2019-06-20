@@ -1,13 +1,12 @@
 import 'package:bayker/services/AuthService.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:bayker/login/user.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'BottomNav.dart';
 import 'package:bayker/map/road_map.dart';
 import 'package:bayker/feeds/feeds.dart';
 import 'package:bayker/crew/crew.dart';
 import 'package:bayker/login/login_view.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -16,7 +15,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   var userName = "Guest";
-  var _appBarTitle = "Guest";
+  var _appBarTitle = "Bayker";
   var _isLoggedUser = false;
   var email = "";
   int _cIndex = 0;
@@ -28,10 +27,19 @@ class _HomeViewState extends State<HomeView> {
 
   Map<String, dynamic> _profile;
 
+  void _requestPermissions() async {
+    Map<PermissionGroup, PermissionStatus> permissions =
+        await PermissionHandler()
+            .requestPermissions([PermissionGroup.location, PermissionGroup.locationAlways]);
+    print(permissions);
+    PermissionStatus _permissionStatus = permissions[PermissionGroup.location];
+    print(_permissionStatus);
+  }
+
   @override
   initState() {
     super.initState();
-
+    //_requestPermissions();
     _saveData(Map<String, dynamic> _profile) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //int counter = (prefs.getInt('counter') ?? 0) + 1;
@@ -56,17 +64,11 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _children = [
-      RoadMap(),
-      Feeds(),
-      Crew(),
-    ];
+    final List<Widget> _children = [RoadMap(), Feeds(), Crew()];
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(_appBarTitle),
-          backgroundColor: Colors.black54
-        ),
+        appBar:
+            AppBar(title: Text(_appBarTitle), backgroundColor: Colors.black54),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
@@ -85,7 +87,13 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
               ),
-              LoginButton(isLoggedUser: _isLoggedUser,),
+              LoginButton(
+                isLoggedUser: _isLoggedUser,
+              ),
+              MaterialButton(
+                onPressed: () => _requestPermissions(),
+                child: Text("Request Permission"),
+              )
             ],
           ),
         ),

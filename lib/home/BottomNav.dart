@@ -19,7 +19,7 @@ class BottomNavState extends State<BottomNav> {
   final void Function(int) callback;
   BottomNavState(this.callback);
   List items = [
-    MenuItem(x: -1.0, name: 'motorcycle', color: Colors.white),
+    MenuItem(x: -1.0, name: 'motorcycle2', color: Colors.white),
     MenuItem(x: 0.0, name: 'world', color: Colors.orange),
     MenuItem(x: 1.0, name: 'helmet', color: Colors.amber),
   ];
@@ -37,7 +37,7 @@ class BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     return Container(
-      height: 80,
+      height: 60,
       color: Colors.black87,
       child: Stack(
         //  <-- 2. Define a stack
