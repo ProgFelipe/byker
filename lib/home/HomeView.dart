@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
 
     return Scaffold(
         appBar:
-            AppBar(title: Text(_appBarTitle), backgroundColor: Colors.black54),
+            AppBar(title: Text(_appBarTitle, style: TextStyle(color: Colors.white),), backgroundColor: Colors.black54),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
