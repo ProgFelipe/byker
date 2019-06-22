@@ -47,13 +47,10 @@ class RoadMapState extends State<RoadMap> {
     _onLocationEnables();
     var location = new Location();
     location.onLocationChanged().listen((LocationData currentLocation) {
-      if(controller != null && locationEnabled){
-            _center = LatLng(currentLocation.latitude, currentLocation.longitude);
-            controller
-                .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-              target: _center,
-              zoom: 10
-            )));
+      if (controller != null && locationEnabled) {
+        _center = LatLng(currentLocation.latitude, currentLocation.longitude);
+        //controller.animateCamera(CameraUpdate.newCameraPosition(
+            //CameraPosition(target: _center, zoom: 10)));
       }
     });
     super.initState();

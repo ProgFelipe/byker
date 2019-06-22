@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
+import 'package:bayker/models/feed.dart';
+import 'package:bayker/models/user.dart';
 
 const API_KEY = "AIzaSyCxAI5dx-_-DvIYp1kdIABum8iJwAdtbrE";
 
@@ -10,14 +13,19 @@ class Feeds extends StatelessWidget {
     var position = Position(latitude: 19.1550318, longitude: -96.132319);
     const BASE_Url = "https://maps.googleapis.com/maps/api/staticmap";
     List<Feed> feeds = [
+      Feed(type: FeedType.publicity, url: "assets/images/sponsor.png"),
       Feed(positions: [position], likes: 20, shareTimes: 4, user: User(iconUrl: "assets/images/helmeth1.png",), routeName: "Medellin - Filandia", fillGasTimes: 2, urlRoute: "assets/images/staticmap3.jpg", pictures: ["",""], spendTime: "4h 30m"),
+      Feed(type: FeedType.publicity, url: "assets/images/sponsor1.jpg"),
       Feed(positions: [position], likes: 80, shareTimes: 100, user: User(iconUrl: "assets/images/helmeth2.png",) ,routeName: "Medellin - Cocorna", urlRoute: "assets/images/staticmap2.jpg", spendTime: "7h 45m"),
+      Feed(type: FeedType.publicity, url: "assets/images/sponsor2.jpg"),
       Feed(positions: [position],likes: 1, shareTimes: 7, user: User(iconUrl: "assets/images/helmeth1.png",), routeName: "Medellin - Rio Claro", urlRoute: "assets/images/staticmap3.jpg", spendTime: "2h 30m")
     ];
-    // TODO: implement build
-    return ListView(
-        children: feeds
-            .map((feed) => Card(
+
+    Widget _buildFeed(Feed feed){
+      if(feed.type == FeedType.publicity){
+              return Sponsor(url: feed.url);
+            }else{
+              return Card(
                   child: Column(
                     children: <Widget>[
                       Row(children: <Widget>[CircleAvatar(
@@ -50,31 +58,21 @@ class Feeds extends StatelessWidget {
                   //Image.network("$BASE_Url?center=${feed.positions[0].latitude},${feed.positions[0].longitude}&zoom=12&size=400x400&key=${API_KEY}"),)).toList(),
                   elevation: 2.0,
                   margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                ))
+                );}
+    }
+    // TODO: implement build
+    return ListView(
+        children: feeds
+            .map((feed) => _buildFeed(feed))
             .toList());
   }
 }
 
-class Feed {
-  final List<Position> positions;
-  final String routeName;
-  final String urlRoute;
-  final User user;
-  final int likes;
-  final int shareTimes;
-  final int fillGasTimes;
-  final bool restaurant;
-  final bool repair;
-  final List<String> pictures;
-  final String spendTime;
-  final double maxSpeed;
-  Feed({this.positions, this.routeName, this.user, this.urlRoute, this.likes, this.shareTimes,
-   this.fillGasTimes, this.restaurant, this.repair, this.pictures, this.spendTime, this.maxSpeed});
-}
-
-class User{
-  final String iconUrl;
-  final String userId;
-  final String crewId;
-  User({this.iconUrl, this.userId, this.crewId});
+class Sponsor extends StatelessWidget{
+  final String url;
+  Sponsor({this.url});
+  @override
+  Widget build(BuildContext context) {
+    return Card(child: Image.asset(url),);
+  }
 }
