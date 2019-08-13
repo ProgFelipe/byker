@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:bayker/models/feed.dart';
 
 class Crew extends StatelessWidget {
+  const Crew({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

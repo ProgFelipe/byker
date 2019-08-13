@@ -1,4 +1,4 @@
-import 'package:bayker/home/HomeView.dart';
+import 'package:bayker/home/home_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'loginContract.dart';
 import 'package:flutter/material.dart';

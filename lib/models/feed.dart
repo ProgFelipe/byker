@@ -1,8 +1,13 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:bayker/models/user.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'feed.g.dart';
 
+@JsonSerializable()
 class Feed {
-  final List<Position> positions;
+  String key;
+  final List<String> positions;
   FeedType type = FeedType.feed;
   final String routeName;
   final String urlRoute;
@@ -18,10 +23,15 @@ class Feed {
   final double maxSpeed;
   Feed({this.positions, this.type, this.url, this.routeName, this.user, this.urlRoute, this.likes, this.shareTimes,
    this.fillGasTimes, this.restaurant, this.repair, this.pictures, this.spendTime, this.maxSpeed});
-}
 
+  factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FeedToJson(this);
+
+}
 
 enum FeedType {
   publicity,
-  feed
+  feed,
+  event
 }

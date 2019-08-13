@@ -1,7 +1,7 @@
 import 'package:bayker/services/AuthService.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'BottomNav.dart';
+import 'bottom_nav.dart';
 import 'package:bayker/map/road_map.dart';
 import 'package:bayker/feeds/feeds.dart';
 import 'package:bayker/crew/crew.dart';
@@ -18,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
   var _appBarTitle = "Bayker";
   var _isLoggedUser = false;
   var email = "";
-  int _cIndex = 0;
+  int _cIndex = 1;
   void _incrementTab(index) {
     setState(() {
       _cIndex = index;
@@ -62,9 +62,11 @@ class _HomeViewState extends State<HomeView> {
         }));
   }
 
+  final PageStorageBucket bucket = PageStorageBucket();
+
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _children = [RoadMap(), Feeds(), Crew()];
+    final List<Widget> _pages = [RoadMap(key: PageStorageKey('Page1'),), Feeds(key: PageStorageKey('Page2'),), Crew(key: PageStorageKey('Page3'),)];
 
     return Scaffold(
         appBar:
@@ -97,7 +99,10 @@ class _HomeViewState extends State<HomeView> {
             ],
           ),
         ),
-        body: _children[_cIndex],
+        body: PageStorage(
+          child: _pages[_cIndex],
+          bucket: bucket,
+          ),
         bottomNavigationBar: BottomNav(_incrementTab));
   }
 }

@@ -7,6 +7,7 @@ import 'package:location/location.dart';
 import 'recorder.dart';
 
 class RoadMap extends StatefulWidget {
+  const RoadMap({Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return RoadMapState();
@@ -14,81 +15,36 @@ class RoadMap extends StatefulWidget {
 }
 
 class RoadMapState extends State<RoadMap> {
-  Completer<GoogleMapController> _controller = Completer();
-  GoogleMapController controller;
-  LatLng _center = const LatLng(45.521563, -122.677433);
   List<Position> locations = [];
-  StreamSubscription<Position> streamSubscription;
-  var locationEnabled = false;
 
-  void _onLocationEnables() async {
-    GeolocationStatus geolocationStatus =
-        await Geolocator().checkGeolocationPermissionStatus();
-    setState(() {
-      if (geolocationStatus.value == GeolocationStatus.granted.value) {
-        locationEnabled = true;
-        print("Granted");
-      } else {
-        locationEnabled = false;
-        print("Not Granted");
-      }
-      //getCurrentLocation();
-    });
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    this.controller = controller;
-    _controller.complete(controller);
-  }
-
-  @override
-  void initState() {
-    //_checkPermissions();
-    _onLocationEnables();
-    var location = new Location();
-    location.onLocationChanged().listen((LocationData currentLocation) {
-      if (controller != null && locationEnabled) {
-        _center = LatLng(currentLocation.latitude, currentLocation.longitude);
-        //controller.animateCamera(CameraUpdate.newCameraPosition(
-            //CameraPosition(target: _center, zoom: 10)));
-      }
-    });
-    super.initState();
-  }
-
-  void getCurrentLocation() {
-    /*var geolocator = Geolocator();
-    var locationOptions =
-        LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
-
-
-
-    if (locationEnabled) {
-      geolocator.getPositionStream(locationOptions).listen((Position position) {
-        print(position == null
-            ? 'Unknown'
-            : position.latitude.toString() +
-                ', ' +
-                position.longitude.toString());
-        setState(() {
-          if (position != null) {
-            _center = LatLng(position.latitude, position.longitude);
-            locations.add(position);
-          }
-        });
-      });
-    }*/
-  }
+  var _cIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
-      onMapCreated: _onMapCreated,
-      initialCameraPosition: CameraPosition(
-        target: _center,
-        zoom: 11.0,
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Maper(),
+          Visibility(
+            visible: _cIndex == 1,
+            child: Recorder(),
+          )
+        ],
       ),
-      myLocationEnabled: true,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepOrange,
+        onPressed: () => setState(() {
+          _cIndex = _cIndex != 1 ? 1 : 0;
+        }),
+        child: _cIndex != 1
+            ? Icon(
+                Icons.radio_button_checked,
+              )
+            : Icon(Icons.map),
+        elevation: 4.0,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
     /*Column(
       children: <Widget>[
@@ -102,5 +58,66 @@ class RoadMapState extends State<RoadMap> {
         )
       ],
     );*/
+  }
+}
+
+class Maper extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MaperState();
+  }
+}
+
+class MaperState extends State<Maper> {
+  Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController controller;
+  LatLng _center = const LatLng(4.5877232, -83.3923411);
+  void _onMapCreated(GoogleMapController controller) {
+    this.controller = controller;
+    _controller.complete(controller);
+  }
+
+  var locationEnabled = false;
+
+  void _onLocationEnables() async {
+    GeolocationStatus geolocationStatus =
+        await Geolocator().checkGeolocationPermissionStatus();
+    setState(() {
+      if (geolocationStatus.value == GeolocationStatus.granted.value) {
+        locationEnabled = true;
+        print("Granted");
+      } else {
+        locationEnabled = false;
+        print("Not Granted");
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    //_checkPermissions();
+    _onLocationEnables();
+    var location = new Location();
+    location.onLocationChanged().listen((LocationData currentLocation) {
+      if (controller != null && locationEnabled) {
+        _center = LatLng(currentLocation.latitude, currentLocation.longitude);
+        //controller.animateCamera(CameraUpdate.newCameraPosition(
+          //  CameraPosition(target: _center, zoom: 10)));
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return GoogleMap(
+      onMapCreated: _onMapCreated,
+      initialCameraPosition: CameraPosition(
+        target: _center,
+        zoom: 20.0,
+      ),
+      myLocationEnabled: true,
+    );
   }
 }
