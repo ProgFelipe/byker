@@ -29,8 +29,8 @@ class _HomeViewState extends State<HomeView> {
 
   void _requestPermissions() async {
     Map<PermissionGroup, PermissionStatus> permissions =
-        await PermissionHandler()
-            .requestPermissions([PermissionGroup.location, PermissionGroup.locationAlways]);
+        await PermissionHandler().requestPermissions(
+            [PermissionGroup.location, PermissionGroup.locationAlways]);
     print(permissions);
     PermissionStatus _permissionStatus = permissions[PermissionGroup.location];
     print(_permissionStatus);
@@ -66,11 +66,25 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _pages = [RoadMap(key: PageStorageKey('Page1'),), Feeds(key: PageStorageKey('Page2'),), Crew(key: PageStorageKey('Page3'),)];
+    final List<Widget> _pages = [
+      RoadMap(
+        key: PageStorageKey('Page1'),
+      ),
+      Feeds(
+        key: PageStorageKey('Page2'),
+      ),
+      Crew(
+        key: PageStorageKey('Page3'),
+      )
+    ];
 
     return Scaffold(
-        appBar:
-            AppBar(title: Text(_appBarTitle, style: TextStyle(color: Colors.white),), backgroundColor: Colors.black54),
+        appBar: AppBar(
+            title: Text(
+              _appBarTitle,
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.black54),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
@@ -102,7 +116,7 @@ class _HomeViewState extends State<HomeView> {
         body: PageStorage(
           child: _pages[_cIndex],
           bucket: bucket,
-          ),
+        ),
         bottomNavigationBar: BottomNav(_incrementTab));
   }
 }

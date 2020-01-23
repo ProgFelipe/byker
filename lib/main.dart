@@ -16,14 +16,14 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             title: 'bayker',
             localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          //app-specific localization
-          EasylocaLizationDelegate(
-              locale: data.locale ?? Locale('en'), path: 'locale'),
-        ],
-        supportedLocales: [Locale('en'), Locale('es')],
-        locale: data.locale,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              //app-specific localization
+              EasylocaLizationDelegate(
+                  locale: data.locale ?? Locale('en'), path: 'locale'),
+            ],
+            supportedLocales: [Locale('en'), Locale('es')],
+            locale: data.locale,
             theme: ThemeData(
               // This is the theme of your application.
               //

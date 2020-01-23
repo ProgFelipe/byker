@@ -11,15 +11,15 @@ class Recorder extends StatefulWidget {
 }
 
 class RecorderState extends State<Recorder> {
-  Stopwatch stopWatch = null;
+  Stopwatch stopWatch;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(stopWatch == null){
+    if (stopWatch == null) {
       stopWatch = Stopwatch();
     }
-    if(!stopWatch.isRunning){
+    if (!stopWatch.isRunning) {
       stopWatch.start();
     }
   }
@@ -65,12 +65,12 @@ class TimerTextFormatter {
     int hundreds = (milliseconds / 10).truncate();
     int seconds = (hundreds / 100).truncate();
     int minutes = (seconds / 60).truncate();
-    int hours = (minutes/60).truncate();
+    int hours = (minutes / 60).truncate();
 
     String hoursStr = (hours % 60).toString().padLeft(2, '0');
     String minutesStr = (minutes % 60).toString().padLeft(2, '0');
     String secondsStr = (seconds % 60).toString().padLeft(2, '0');
-    
+
     return "$hoursStr:$minutesStr:$secondsStr";
   }
 }

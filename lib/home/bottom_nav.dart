@@ -1,6 +1,6 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class BottomNav extends StatefulWidget {
   final void Function(int) callback;
@@ -68,7 +68,7 @@ class BottomNavState extends State<BottomNav> {
     );
   }
 
-    Widget _flare(MenuItem item) {
+  Widget _flare(MenuItem item) {
     return GestureDetector(
       child: AspectRatio(
         aspectRatio: 1,
@@ -90,5 +90,4 @@ class BottomNavState extends State<BottomNav> {
       },
     );
   }
-
 }

@@ -1,15 +1,12 @@
-import 'package:bayker/home/home_view.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'loginContract.dart';
-import 'package:flutter/material.dart';
-import 'package:bayker/shared/CurvedShape.dart';
-//import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:animator/animator.dart';
-import 'loginPresenter.dart';
-import 'loginModel.dart';
 import 'package:bayker/services/AuthService.dart';
-import 'user.dart';
+import 'package:bayker/shared/CurvedShape.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+
+import 'loginContract.dart';
+import 'loginModel.dart';
+import 'loginPresenter.dart';
 
 class LoginView extends StatelessWidget implements View {
   @override
@@ -65,22 +62,22 @@ class Header extends StatelessWidget {
       clipper: CurvedShape(),
       child: Animator(
         builder: (Animation anim) => Opacity(
-              opacity: anim.value,
-              child: Container(
-                height: 400.0,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "BYKER",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 60.0),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFCD362C), Color(0xFFF09633)])),
+          opacity: anim.value,
+          child: Container(
+            height: 400.0,
+            child: Container(
+              alignment: Alignment.center,
+              child: Text(
+                "BYKER",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 60.0),
               ),
             ),
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Color(0xFFCD362C), Color(0xFFF09633)])),
+          ),
+        ),
       ),
     );
   }

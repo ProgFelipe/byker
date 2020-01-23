@@ -1,15 +1,14 @@
 import 'loginContract.dart';
 import 'package:bayker/services/AuthService.dart';
 
-class LoginModel implements Model{
-
+class LoginModel implements Model {
   @override
-  void login(){
+  void login() {
     authService.googleSignIn();
   }
 
   @override
-  void logout(){
+  void logout() {
     authService.signOut();
   }
 }

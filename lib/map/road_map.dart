@@ -102,7 +102,7 @@ class MaperState extends State<Maper> {
       if (controller != null && locationEnabled) {
         _center = LatLng(currentLocation.latitude, currentLocation.longitude);
         //controller.animateCamera(CameraUpdate.newCameraPosition(
-          //  CameraPosition(target: _center, zoom: 10)));
+        //  CameraPosition(target: _center, zoom: 10)));
       }
     });
     super.initState();
